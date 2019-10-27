@@ -3,6 +3,7 @@ package com.unassigned.voidmagic.common.events;
 import com.unassigned.voidmagic.VoidMagic;
 import com.unassigned.voidmagic.common.blocks.ModBlocks;
 import com.unassigned.voidmagic.common.blocks.TestBlock;
+import com.unassigned.voidmagic.common.items.TestItem;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -21,6 +22,11 @@ public class CommonEvents {
     @SubscribeEvent
     public static void onItemRegistry(final RegistryEvent.Register<Item> register) {
         Item.Properties properties = new Item.Properties().group(VoidMagic.setup.itemGroup);
+
+        //items
+        register.getRegistry().register(new TestItem());
+
+        //item blocks
         register.getRegistry().register(new BlockItem(ModBlocks.testBlock, properties).setRegistryName("testblock"));
     }
 }
