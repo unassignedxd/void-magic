@@ -1,3 +1,6 @@
 {
-  "block.voidmagic.testblock": "Test Block"
+  "block.voidmagic.testblock": "Test Block",
+
+  "_comment": "Creative Tab:",
+  "itemGroup.voidmagic": "Void Magic"
 }
