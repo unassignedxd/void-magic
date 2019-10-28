@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
-      "model": "voidmagic:block/testblock"
-    }
+    "facing=north": { "model": "voidmagic:block/testblock" },
+    "facing=east": { "model": "voidmagic:block/testblock", "y": 90 },
+    "facing=south": { "model": "voidmagic:block/testblock", "y": 180 },
+    "facing=west": { "model": "voidmagic:block/testblock", "y": 270 },
+    "facing=up": { "model": "voidmagic:block/testblock", "x": -90 },
+    "facing=down": { "model": "voidmagic:block/testblock", "x": 90 }
   }
 }

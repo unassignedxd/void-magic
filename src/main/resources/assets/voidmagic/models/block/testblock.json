@@ -1,7 +1,12 @@
 {
-  "parent": "block/cube_all",
+  "parent": "block/cube",
   "textures": {
     "particle": "voidmagic:block/testblock",
-    "all": "voidmagic:block/testblock"
+    "down": "voidmagic:block/testblock",
+    "up": "voidmagic:block/testblock",
+    "north": "voidmagic:block/testblock_front",
+    "east": "voidmagic:block/testblock",
+    "south": "voidmagic:block/testblock",
+    "west": "voidmagic:block/testblock"
   }
 }

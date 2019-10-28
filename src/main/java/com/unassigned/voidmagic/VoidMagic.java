@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 @Mod("voidmagic")
 public class VoidMagic {
 
+    public static final String MODID = "voidmagic";
     public static IProxy proxy = DistExecutor.runForDist(()->()-> new ClientProxy(), ()->()-> new ServerProxy());
     public static ModSetup setup = new ModSetup();
 
