@@ -39,6 +39,7 @@ public class TestBlock extends Block {
             TileEntity te = world.getTileEntity(pos);
             if(te != null && te instanceof INamedContainerProvider) {
                 NetworkHooks.openGui((ServerPlayerEntity)entity, (INamedContainerProvider) te, te.getPos());
+                return true;
             }
         }
         return super.onBlockActivated(state, world, pos, entity, hand, ray);

@@ -6,4 +6,7 @@ public class ModItems {
 
     @ObjectHolder("voidmagic:testitem")
     public static TestItem testItem;
+
+    @ObjectHolder("voidmagic:flowerpack")
+    public static ItemFlowerPack flowerPack;
 }

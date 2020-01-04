@@ -1,6 +1,7 @@
 package com.unassigned.voidmagic.client;
 
 import com.unassigned.voidmagic.IProxy;
+import com.unassigned.voidmagic.client.screens.CoalGeneratorScreen;
 import com.unassigned.voidmagic.client.screens.TestBlockScreen;
 import com.unassigned.voidmagic.common.blocks.ModBlocks;
 import net.minecraft.client.Minecraft;
@@ -13,6 +14,7 @@ public class ClientProxy implements IProxy {
     @Override
     public void init() {
         ScreenManager.registerFactory(ModBlocks.testBlockContainer, TestBlockScreen::new);
+        ScreenManager.registerFactory(ModBlocks.coalGeneratorContainer, CoalGeneratorScreen::new);
     }
 
     @Override

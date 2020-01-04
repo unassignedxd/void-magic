@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "voidmagic",
+  "pattern": [
+    "xxx",
+    "x2x",
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "minecraft:cobblestone"
+    },
+    "2": {
+      "item": "minecraft:coal"
+    }
+  },
+  "result": {
+    "item": "voidmagic:coalgenerator"
+  }
+}

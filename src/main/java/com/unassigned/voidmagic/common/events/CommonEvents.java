@@ -1,10 +1,13 @@
 package com.unassigned.voidmagic.common.events;
 
 import com.unassigned.voidmagic.VoidMagic;
+import com.unassigned.voidmagic.common.blocks.BlockCoalGenerator;
 import com.unassigned.voidmagic.common.blocks.ModBlocks;
 import com.unassigned.voidmagic.common.blocks.TestBlock;
+import com.unassigned.voidmagic.common.container.ContainerCoalGenerator;
 import com.unassigned.voidmagic.common.container.ContainerTestBlock;
 import com.unassigned.voidmagic.common.items.TestItem;
+import com.unassigned.voidmagic.common.tileentity.TileCoalGenerator;
 import com.unassigned.voidmagic.common.tileentity.TileTestBlock;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.container.ContainerType;
@@ -23,6 +26,7 @@ public class CommonEvents {
     @SubscribeEvent
     public static void onBlockRegistry(final RegistryEvent.Register<Block> register) {
         register.getRegistry().register(new TestBlock());
+        register.getRegistry().register(new BlockCoalGenerator());
     }
 
     @SubscribeEvent
@@ -34,11 +38,13 @@ public class CommonEvents {
 
         //item blocks
         register.getRegistry().register(new BlockItem(ModBlocks.testBlock, properties).setRegistryName("testblock"));
+        register.getRegistry().register(new BlockItem(ModBlocks.coalGenerator, properties).setRegistryName("coalgenerator"));
     }
 
     @SubscribeEvent
     public static void onTileTypeRegistry(final RegistryEvent.Register<TileEntityType<?>> register) {
         register.getRegistry().register(TileEntityType.Builder.create(TileTestBlock::new, ModBlocks.testBlock).build(null).setRegistryName("testblock"));
+        register.getRegistry().register(TileEntityType.Builder.create(TileCoalGenerator::new, ModBlocks.coalGenerator).build(null).setRegistryName("coalgenerator"));
     }
 
     @SubscribeEvent
@@ -47,5 +53,10 @@ public class CommonEvents {
             BlockPos pos = data.readBlockPos();
             return new ContainerTestBlock(windowId, VoidMagic.proxy.getClientWorld(), pos, inv, VoidMagic.proxy.getClientPlayer()); //called on client
         })).setRegistryName("testblock"));
+
+        register.getRegistry().register(IForgeContainerType.create(((windowId, inv, data) -> {
+            BlockPos pos = data.readBlockPos();
+            return new ContainerCoalGenerator(windowId, VoidMagic.proxy.getClientWorld(), pos, inv, VoidMagic.proxy.getClientPlayer());
+        })).setRegistryName("coalgenerator"));
     }
 }
