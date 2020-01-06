@@ -1,6 +1,6 @@
 package com.unassigned.voidmagic.common.blocks;
 
-import com.unassigned.voidmagic.common.tileentity.TileCoalGenerator;
+import com.unassigned.voidmagic.common.tileentity.TileVoidInfuser;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -19,13 +19,13 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
-public class BlockCoalGenerator extends Block {
+public class BlockVoidInfuser extends Block {
 
-    public BlockCoalGenerator() {
+    public BlockVoidInfuser() {
         super(Properties.create(Material.IRON)
                 .sound(SoundType.STONE)
                 .hardnessAndResistance(2.0F));
-        setRegistryName("coalgenerator");
+        setRegistryName("voidinfuser");
     }
 
     @Override
@@ -36,7 +36,7 @@ public class BlockCoalGenerator extends Block {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new TileCoalGenerator();
+        return new TileVoidInfuser();
     }
 
     @Override

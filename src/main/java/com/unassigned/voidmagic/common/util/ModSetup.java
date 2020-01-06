@@ -1,6 +1,7 @@
 package com.unassigned.voidmagic.common.util;
 
 import com.unassigned.voidmagic.common.blocks.ModBlocks;
+import com.unassigned.voidmagic.common.capability.playervoid.CapabilityPlayerVoid;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
@@ -13,5 +14,7 @@ public class ModSetup {
         }
     };
 
-    public void init() {}
+    public void init() {
+        CapabilityPlayerVoid.registerCap();
+    }
 }

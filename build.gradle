@@ -1,8 +1,8 @@
 buildscript {
     repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
         mavenCentral()
+        maven { url = 'https://files.minecraftforge.net/maven' }
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
@@ -25,7 +25,7 @@ minecraft {
     // stable_#            Stables are built at the discretion of the MCP team.
     // Use non-default mappings at your own risk. they may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
-    mappings channel: 'snapshot', version: '20200103-1.14.3'
+    mappings channel: 'snapshot', version: '20200106-1.14.3'
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
     
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
@@ -85,6 +85,19 @@ minecraft {
     }
 }
 
+repositories {
+    mavenCentral();
+    maven {
+        url = "https://dvs1.progwml6.com/files/maven"
+    }
+    maven {
+        url = "https://minecraft.curseforge.com/api/maven/"
+    }
+    maven {
+        url = "https://maven.blamejared.com"
+    }
+}
+
 dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
@@ -109,6 +122,10 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
+    compile fg.deobf("vazkii.patchouli:Patchouli:1.1-22.43") { transitive = false }
+
+    compileOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.11:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.11")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

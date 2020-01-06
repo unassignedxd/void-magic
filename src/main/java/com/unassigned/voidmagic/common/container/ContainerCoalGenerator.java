@@ -49,10 +49,23 @@ public class ContainerCoalGenerator extends Container {
                 te.getCapability(CapabilityEnergy.ENERGY).ifPresent(e -> ((CustomEnergyStorage)e).setEnergy(i));
             }
         });
+        trackInt(new IntReferenceHolder() {
+            @Override
+            public int get() {
+                return getMaxEnergyStored();
+            }
+
+            @Override
+            public void set(int i) { }
+        });
     }
 
     public int getEnergyStored() {
         return te.getCapability(CapabilityEnergy.ENERGY).map(IEnergyStorage::getEnergyStored).orElse(0);
+    }
+
+    public int getMaxEnergyStored(){
+        return te.getCapability(CapabilityEnergy.ENERGY).map(IEnergyStorage::getMaxEnergyStored).orElse(0);
     }
 
     /**

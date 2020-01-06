@@ -2,6 +2,7 @@
   "block.voidmagic.testblock": "Test Block",
 
   "item.voidmagic.testitem": "Test Item",
+  "item.voidmagic.transmutestone": "Transmutation Stone",
 
   "_comment": "Creative Tab:",
   "itemGroup.voidmagic": "Void Magic"

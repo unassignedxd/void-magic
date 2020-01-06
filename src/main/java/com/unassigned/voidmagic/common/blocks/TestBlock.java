@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -63,7 +64,7 @@ public class TestBlock extends Block {
     }
 
     private static Direction getFacingFromEntity(BlockPos pos, LivingEntity entity) {
-        return Direction.getFacingFromVector((float)(entity.posX - pos.getX()), (float)(entity.posY - pos.getY()), (float)(entity.posZ - pos.getZ()));
+        return Direction.getFacingFromVector((float)(entity.getPosition().getX() - pos.getX()), (float)(entity.getPosition().getY() - pos.getY()), (float)(entity.getPosition().getZ() - pos.getZ()));
     }
 
     @Override
