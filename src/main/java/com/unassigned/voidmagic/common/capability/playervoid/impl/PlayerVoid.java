@@ -71,7 +71,7 @@ public class PlayerVoid implements IPlayerVoid {
     @Override
     public void removeVoid(int removeVoid) {
         if(this.voidStored - removeVoid < 0){ this.voidStored = 0; }
-            else {this.voidStored -= removeVoid; }
+            else { this.voidStored -= removeVoid; }
 
         if(player != null && !player.world.isRemote)
             VoidMagic.network.send(PacketDistributor.PLAYER.with(()-> (ServerPlayerEntity) player), new MessagePlayerVoid(this.voidStored));

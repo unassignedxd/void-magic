@@ -1,5 +1,6 @@
 package com.unassigned.voidmagic.network.messages;
 
+import com.unassigned.voidmagic.VoidMagic;
 import com.unassigned.voidmagic.common.capability.playervoid.PlayerVoidProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
@@ -26,11 +27,9 @@ public class MessagePlayerVoid {
 
     public static void handle(MessagePlayerVoid message, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            PlayerEntity e = Minecraft.getInstance().player;
+            PlayerEntity e = VoidMagic.proxy.getClientPlayer();
             if(e != null) {
-                e.getCapability(PlayerVoidProvider.CAPABILITY_PLAYER_VOID).ifPresent(pv -> {
-                    pv.setVoidStored(message.playerVoid);
-                });
+                e.getCapability(PlayerVoidProvider.CAPABILITY_PLAYER_VOID).ifPresent(pv -> pv.setVoidStored(message.playerVoid));
             }
         });
         ctx.get().setPacketHandled(true);
