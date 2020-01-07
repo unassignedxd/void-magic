@@ -1,7 +1,7 @@
-package com.unassigned.voidmagic.network;
+package com.unassigned.voidmagic.common.network;
 
 import com.unassigned.voidmagic.VoidMagic;
-import com.unassigned.voidmagic.network.messages.MessagePlayerVoid;
+import com.unassigned.voidmagic.common.network.messages.MessagePlayerVoid;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;

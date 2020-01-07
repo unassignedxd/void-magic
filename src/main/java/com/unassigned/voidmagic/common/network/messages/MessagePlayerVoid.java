@@ -1,8 +1,7 @@
-package com.unassigned.voidmagic.network.messages;
+package com.unassigned.voidmagic.common.network.messages;
 
 import com.unassigned.voidmagic.VoidMagic;
 import com.unassigned.voidmagic.common.capability.playervoid.PlayerVoidProvider;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;

@@ -3,7 +3,7 @@ package com.unassigned.voidmagic.common.capability.playervoid.impl;
 import com.unassigned.voidmagic.VoidMagic;
 import com.unassigned.voidmagic.common.capability.playervoid.IVoidSkill;
 import com.unassigned.voidmagic.common.capability.playervoid.IPlayerVoid;
-import com.unassigned.voidmagic.network.messages.MessagePlayerVoid;
+import com.unassigned.voidmagic.common.network.messages.MessagePlayerVoid;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.fml.network.PacketDistributor;

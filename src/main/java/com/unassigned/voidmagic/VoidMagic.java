@@ -4,7 +4,7 @@ import com.unassigned.voidmagic.client.ClientProxy;
 import com.unassigned.voidmagic.common.ServerProxy;
 import com.unassigned.voidmagic.common.events.CommonEvents;
 import com.unassigned.voidmagic.common.util.ModSetup;
-import com.unassigned.voidmagic.network.NetworkHandler;
+import com.unassigned.voidmagic.common.network.NetworkHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
