@@ -1,12 +1,13 @@
 package com.unassigned.voidmagic.common.items;
 
 import com.unassigned.voidmagic.VoidMagic;
-import com.unassigned.voidmagic.common.capability.playervoid.CapabilityPlayerVoid;
+import com.unassigned.voidmagic.common.capability.playervoid.PlayerVoidProvider;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
 public class TestItem extends Item {
@@ -21,12 +22,10 @@ public class TestItem extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
         //if(!world.isRemote){
-            player.getCapability(CapabilityPlayerVoid.CAPABILITY_PLAYER_VOID).ifPresent(
+            player.getCapability(PlayerVoidProvider.CAPABILITY_PLAYER_VOID).ifPresent(
                     cap -> {
-                        if(player.isSneaking() && !world.isRemote)
-                            cap.addVoid(1500);
-                        else
-                            System.out.println(cap.getVoidStored());
+                        cap.addVoid(1500);
+                        player.sendMessage(new StringTextComponent("Client Side?: " + world.isRemote + " | Player's Stored Void is now: " + cap.getVoidStored()));
                     }
             );
        // }

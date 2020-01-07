@@ -1,7 +1,7 @@
 package com.unassigned.voidmagic.common.tileentity;
 
 import com.unassigned.voidmagic.client.recipe.VoidInfusionRecipe;
-import com.unassigned.voidmagic.common.capability.playervoid.CapabilityPlayerVoid;
+import com.unassigned.voidmagic.common.capability.playervoid.PlayerVoidProvider;
 import com.unassigned.voidmagic.common.items.ModItems;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -59,7 +59,7 @@ public class TileVoidInfuser extends TileEntity implements ITickableTileEntity {
                     if ((player.getHeldItem(Hand.MAIN_HAND).getItem() == ModItems.transmuteStone ||
                             player.getHeldItem(Hand.OFF_HAND).getItem() == ModItems.transmuteStone) && getDistanceSq(player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ()) <= 8.0D) {
                         if (storedVoid < TESTREQ) {
-                            player.getCapability(CapabilityPlayerVoid.CAPABILITY_PLAYER_VOID).ifPresent(v -> {
+                            player.getCapability(PlayerVoidProvider.CAPABILITY_PLAYER_VOID).ifPresent(v -> {
                                 if (v.getVoidStored() > 0) {
                                     v.removeVoid(1); //void per tick based on craft time and sucking amount
                                     storedVoid++;

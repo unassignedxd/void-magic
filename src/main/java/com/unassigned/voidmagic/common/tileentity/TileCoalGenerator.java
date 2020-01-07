@@ -1,6 +1,5 @@
 package com.unassigned.voidmagic.common.tileentity;
 
-import com.unassigned.voidmagic.common.capability.playervoid.CapabilityPlayerVoid;
 import com.unassigned.voidmagic.common.container.ContainerCoalGenerator;
 import com.unassigned.voidmagic.common.util.CustomEnergyStorage;
 import net.minecraft.entity.player.PlayerEntity;

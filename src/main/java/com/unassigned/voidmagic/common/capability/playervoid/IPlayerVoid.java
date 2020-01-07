@@ -1,0 +1,22 @@
+package com.unassigned.voidmagic.common.capability.playervoid;
+
+import net.minecraft.entity.player.PlayerEntity;
+
+import java.util.ArrayList;
+
+public interface IPlayerVoid {
+
+    PlayerEntity getAttachedPlayer();
+
+    ArrayList<IVoidSkill> getVoidSkills();
+    void setVoidSkills(ArrayList<IVoidSkill> set);
+    void addSkill(IVoidSkill skill);
+    void removeSkill(IVoidSkill skill);
+
+    int getVoidStored();
+    void setVoidStored(int set);
+    void addVoid(int toAdd);
+    void removeVoid(int removeVoid);
+
+    int getMaxVoidStored();
+}

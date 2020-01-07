@@ -1,8 +1,8 @@
-package com.unassigned.voidmagic.common.capability.playervoid;
+package com.unassigned.voidmagic.common.capability.playervoid.impl;
 
 import com.unassigned.voidmagic.VoidMagic;
-import com.unassigned.voidmagic.common.capability.playervoid.impl.IPlayerVoid;
-import com.unassigned.voidmagic.common.capability.playervoid.skills.IPlayerSkill;
+import com.unassigned.voidmagic.common.capability.playervoid.IVoidSkill;
+import com.unassigned.voidmagic.common.capability.playervoid.IPlayerVoid;
 import com.unassigned.voidmagic.network.messages.MessagePlayerVoid;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -15,13 +15,13 @@ public class PlayerVoid implements IPlayerVoid {
 
     protected final PlayerEntity player;
 
-    protected ArrayList<IPlayerSkill> playerSkills;
+    protected ArrayList<IVoidSkill> voidSkills;
     protected int voidStored;
 
     public PlayerVoid(PlayerEntity player) {
         this.player = player;
         this.voidStored = 0;
-        this.playerSkills = new ArrayList<>();
+        this.voidSkills = new ArrayList<>();
     }
 
     @Override
@@ -30,23 +30,23 @@ public class PlayerVoid implements IPlayerVoid {
     }
 
     @Override
-    public ArrayList<IPlayerSkill> getPlayerSkills() {
-        return this.playerSkills;
+    public ArrayList<IVoidSkill> getVoidSkills() {
+        return this.voidSkills;
     }
 
     @Override
-    public void setPlayerSkills(ArrayList<IPlayerSkill> set) {
-        this.playerSkills = set;
+    public void setVoidSkills(ArrayList<IVoidSkill> set) {
+        this.voidSkills = set;
     }
 
     @Override
-    public void addSkill(@Nonnull IPlayerSkill skill) {
-        if(!this.playerSkills.contains(skill)) this.playerSkills.add(skill);
+    public void addSkill(@Nonnull IVoidSkill skill) {
+        if(!this.voidSkills.contains(skill)) this.voidSkills.add(skill);
     }
 
     @Override
-    public void removeSkill(IPlayerSkill skill) {
-        this.playerSkills.remove(skill);
+    public void removeSkill(IVoidSkill skill) {
+        this.voidSkills.remove(skill);
     }
 
     @Override
@@ -57,14 +57,14 @@ public class PlayerVoid implements IPlayerVoid {
     @Override
     public void setVoidStored(int set) {
         this.voidStored = set;
-        if(!player.world.isRemote)
+        if(player != null && !player.world.isRemote)
             VoidMagic.network.send(PacketDistributor.PLAYER.with(()-> (ServerPlayerEntity) player), new MessagePlayerVoid(this.voidStored));
     }
 
     @Override
     public void addVoid(int toAdd) {
         this.voidStored += toAdd;
-        if(!player.world.isRemote)
+        if(player != null && !player.world.isRemote)
             VoidMagic.network.send(PacketDistributor.PLAYER.with(()-> (ServerPlayerEntity) player), new MessagePlayerVoid(this.voidStored));
     }
 
@@ -73,7 +73,7 @@ public class PlayerVoid implements IPlayerVoid {
         if(this.voidStored - removeVoid < 0){ this.voidStored = 0; }
             else {this.voidStored -= removeVoid; }
 
-        if(!player.world.isRemote)
+        if(player != null && !player.world.isRemote)
             VoidMagic.network.send(PacketDistributor.PLAYER.with(()-> (ServerPlayerEntity) player), new MessagePlayerVoid(this.voidStored));
     }
 

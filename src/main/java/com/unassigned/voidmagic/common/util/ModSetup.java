@@ -1,9 +1,12 @@
 package com.unassigned.voidmagic.common.util;
 
 import com.unassigned.voidmagic.common.blocks.ModBlocks;
-import com.unassigned.voidmagic.common.capability.playervoid.CapabilityPlayerVoid;
+import com.unassigned.voidmagic.common.capability.playervoid.IPlayerVoid;
+import com.unassigned.voidmagic.common.capability.playervoid.PlayerVoidProvider;
+import com.unassigned.voidmagic.common.capability.playervoid.PlayerVoidStorage;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 
 public class ModSetup {
 
@@ -15,6 +18,6 @@ public class ModSetup {
     };
 
     public void init() {
-        CapabilityPlayerVoid.registerCap();
+        CapabilityManager.INSTANCE.register(IPlayerVoid.class, new PlayerVoidStorage(), ()->null);
     }
 }
