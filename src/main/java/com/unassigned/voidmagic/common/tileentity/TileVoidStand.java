@@ -18,12 +18,29 @@ import javax.annotation.Nullable;
 
 import static com.unassigned.voidmagic.common.blocks.ModBlocks.voidStandTile;
 
-public class TileVoidStand extends TileEntity {
+public class TileVoidStand extends TileEntityBase {
 
-    public LazyOptional<IItemHandler> itemHandler = LazyOptional.of(this::getItemHandler);
+    public final ItemStackHandler inv = new ItemStackHandler() {
+        @Override
+        public int getSlotLimit(int slot) {
+            return 1;
+        }
+
+        @Override
+        protected void onContentsChanged(int slot) {
+            super.onContentsChanged(slot);
+            getTileEntity().markDirty();
+        }
+    };
+    public LazyOptional<IItemHandler> itemHandler = LazyOptional.of(()->inv);
 
     public TileVoidStand() {
         super(voidStandTile);
+    }
+
+    @Override
+    public void update() {
+        super.update();
     }
 
     @Nonnull
@@ -34,52 +51,15 @@ public class TileVoidStand extends TileEntity {
         return super.getCapability(cap, side);
     }
 
-    private ItemStackHandler getItemHandler() {
-        return new ItemStackHandler(1){
-            @Override
-            protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
-                return 1;
-            }
-        };
+    @Override
+    public void writeNBT(CompoundNBT compoundNBT, NBTSaveType saveType) {
+        compoundNBT.put("Inventory", this.inv.serializeNBT());
+        super.writeNBT(compoundNBT, saveType);
     }
 
     @Override
-    public void read(CompoundNBT compound) {
-        itemHandler.ifPresent(h -> ((INBTSerializable<CompoundNBT>)h).deserializeNBT(compound.getCompound("inv")));
-        super.read(compound);
+    public void readNBT(CompoundNBT compoundNBT, NBTSaveType saveType) {
+        this.inv.deserializeNBT(compoundNBT.getCompound("Inventory"));
+        super.readNBT(compoundNBT, saveType);
     }
-
-    @Override
-    public CompoundNBT write(CompoundNBT compound) {
-        itemHandler.ifPresent(h -> {
-            compound.put("inv", ((INBTSerializable<CompoundNBT>)h).serializeNBT());
-        });
-        return super.write(compound);
-    }
-
-    @Nullable
-    @Override
-    public SUpdateTileEntityPacket getUpdatePacket() {
-        CompoundNBT compoundNBT = new CompoundNBT();
-        this.write(compoundNBT);
-        return new SUpdateTileEntityPacket(this.pos, -1, compoundNBT);
-    }
-
-    @Override
-    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-        this.read(pkt.getNbtCompound());
-    }
-
-    @Override
-    public CompoundNBT getUpdateTag() {
-        CompoundNBT compoundNBT = new CompoundNBT();
-        this.write(compoundNBT);
-        return compoundNBT;
-    }
-
-    @Override
-    public void handleUpdateTag(CompoundNBT tag) {
-        this.read(tag);
-    }
-
 }

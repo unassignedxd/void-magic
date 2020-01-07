@@ -21,14 +21,11 @@ public class TestItem extends Item {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-        //if(!world.isRemote){
-            player.getCapability(PlayerVoidProvider.CAPABILITY_PLAYER_VOID).ifPresent(
-                    cap -> {
-                        cap.addVoid(1500);
-                        player.sendMessage(new StringTextComponent("Client Side?: " + world.isRemote + " | Player's Stored Void is now: " + cap.getVoidStored()));
-                    }
-            );
-       // }
+        player.getCapability(PlayerVoidProvider.CAPABILITY_PLAYER_VOID).ifPresent(
+                cap -> {
+                    cap.addVoid(1500);
+                    player.sendMessage(new StringTextComponent("Client Side?: " + world.isRemote + " | Player's Stored Void is now: " + cap.getVoidStored()));
+                });
         return super.onItemRightClick(world, player, hand);
     }
 }

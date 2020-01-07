@@ -14,7 +14,7 @@ public class PlayerVoidStorage implements Capability.IStorage<IPlayerVoid> {
         CompoundNBT compound = new CompoundNBT();
         if(capability != null && instance != null) {
             if(instance.getAttachedPlayer() != null) {
-                compound.putInt("VoidStored", instance.getVoidStored());
+                //compound.putInt("VoidStored", instance.getVoidStored());
 
                 CompoundNBT skillCompound = new CompoundNBT();
                 for(IVoidSkill skill : instance.getVoidSkills()) {
@@ -34,7 +34,7 @@ public class PlayerVoidStorage implements Capability.IStorage<IPlayerVoid> {
             if(nbt instanceof CompoundNBT) {
                 CompoundNBT compound = (CompoundNBT)nbt;
                 if(compound.contains("VoidStored")) {
-                    instance.setVoidStored(compound.getInt("VoidStored"));
+                    //instance.setVoidStored(compound.getInt("VoidStored"));
                 }
                 if(compound.contains("VoidSkills")){
                     // -- TODO -- \\

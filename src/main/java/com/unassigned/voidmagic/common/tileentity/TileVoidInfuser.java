@@ -1,5 +1,7 @@
 package com.unassigned.voidmagic.common.tileentity;
 
+import com.unassigned.voidmagic.client.fx.ModParticles;
+import com.unassigned.voidmagic.client.fx.particle.VoidSparkParticleData;
 import com.unassigned.voidmagic.client.recipe.VoidInfusionRecipe;
 import com.unassigned.voidmagic.common.capability.playervoid.PlayerVoidProvider;
 import com.unassigned.voidmagic.common.items.ModItems;
@@ -34,13 +36,18 @@ import static com.unassigned.voidmagic.common.blocks.ModBlocks.voidInfuserTile;
 
     Once the void is drawn the infusion will start. This infusion process will be used to either create the void upgradeable gear or to empower the gear.
  */
-public class TileVoidInfuser extends TileEntity implements ITickableTileEntity {
+public class TileVoidInfuser extends TileEntityBase {
 
-    public LazyOptional<IItemHandler> itemHandler = LazyOptional.of(this::getItemHandler);
+    public final ItemStackHandler inv = new ItemStackHandler(1){
+        @Override
+        public int getSlotLimit(int slot) {
+            return 1;
+        }
+    };
+    public LazyOptional<IItemHandler> itemHandler = LazyOptional.of(()->this.inv);
+
     public int storedVoid = 0;
     public VoidInfusionRecipe curRecipe;
-
-    private int ticksElapsed;
 
     private static final int TESTREQ = 25000;
 
@@ -49,28 +56,11 @@ public class TileVoidInfuser extends TileEntity implements ITickableTileEntity {
     }
 
     @Override
-    public void tick() {
-        ticksElapsed++;
-        if(!world.isRemote) {
-            if (properConfiguration()) {
-                //check for recipe here too --- if not enough void stored run the following
-                PlayerEntity player = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ());
-                if (player != null) {
-                    if ((player.getHeldItem(Hand.MAIN_HAND).getItem() == ModItems.transmuteStone ||
-                            player.getHeldItem(Hand.OFF_HAND).getItem() == ModItems.transmuteStone) && getDistanceSq(player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ()) <= 8.0D) {
-                        if (storedVoid < TESTREQ) {
-                            player.getCapability(PlayerVoidProvider.CAPABILITY_PLAYER_VOID).ifPresent(v -> {
-                                if (v.getVoidStored() > 0) {
-                                    v.removeVoid(1); //void per tick based on craft time and sucking amount
-                                    storedVoid++;
-                                    if (ticksElapsed % 5 == 0)
-                                        ((ServerWorld) world).spawnParticle(ParticleTypes.END_ROD, pos.getX(), pos.getY(), pos.getZ(), 10, 0, 1f, 0, 1D);
-                                }
-                            });
-                        }
-                    }
-                }
-            }
+    public void update() {
+        super.update();
+        if(ticksElapsed%20==0) {
+            VoidSparkParticleData data = new VoidSparkParticleData((float)Math.random(), 0,0,0, (float)Math.random(),(float)Math.random(), (float)Math.random(), 100, true, true);
+            world.addParticle(data, this.pos.getX(), this.pos.getY()+1.5, this.pos.getZ(), 0,0,0);
         }
     }
 
@@ -87,51 +77,21 @@ public class TileVoidInfuser extends TileEntity implements ITickableTileEntity {
         return super.getCapability(cap, side);
     }
 
-    private IItemHandler getItemHandler() {
-        return new ItemStackHandler(1){
-            @Override
-            protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
-                return 1;
-            }
-        };
+    @Override
+    public void writeNBT(CompoundNBT compoundNBT, NBTSaveType saveType) {
+        if(saveType != NBTSaveType.SAVE_BLOCK) {
+            compoundNBT.putInt("StoredVoid", this.storedVoid);
+        }
+        compoundNBT.put("Inventory", this.inv.serializeNBT());
+        super.writeNBT(compoundNBT, saveType);
     }
 
     @Override
-    public void read(CompoundNBT compound) {
-        itemHandler.ifPresent(h -> ((INBTSerializable<CompoundNBT>)h).deserializeNBT(compound.getCompound("inv")));
-        super.read(compound);
-    }
-
-    @Override
-    public CompoundNBT write(CompoundNBT compound) {
-        itemHandler.ifPresent(h -> {
-            compound.put("inv", ((INBTSerializable<CompoundNBT>)h).serializeNBT());
-        });
-        return super.write(compound);
-    }
-
-    @Nullable
-    @Override
-    public SUpdateTileEntityPacket getUpdatePacket() {
-        CompoundNBT compoundNBT = new CompoundNBT();
-        this.write(compoundNBT);
-        return new SUpdateTileEntityPacket(this.pos, -1, compoundNBT);
-    }
-
-    @Override
-    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-        this.read(pkt.getNbtCompound());
-    }
-
-    @Override
-    public CompoundNBT getUpdateTag() {
-        CompoundNBT compoundNBT = new CompoundNBT();
-        this.write(compoundNBT);
-        return compoundNBT;
-    }
-
-    @Override
-    public void handleUpdateTag(CompoundNBT tag) {
-        this.read(tag);
+    public void readNBT(CompoundNBT compoundNBT, NBTSaveType saveType) {
+        if(saveType != NBTSaveType.SAVE_BLOCK) {
+            this.storedVoid = compoundNBT.getInt("StoredVoid");
+        }
+        this.inv.deserializeNBT(compoundNBT.getCompound("Inventory"));
+        super.readNBT(compoundNBT, saveType);
     }
 }
