@@ -1,6 +1,6 @@
 package com.unassigned.voidmagic.client.events;
 
-import com.unassigned.voidmagic.common.capability.playervoid.PlayerVoidProvider;
+import com.unassigned.voidmagic.common.capability.playervoid.CapabilityPlayerVoid;
 import com.unassigned.voidmagic.common.items.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
@@ -22,11 +22,10 @@ public class ClientEvents {
 
         FontRenderer fr = Minecraft.getInstance().fontRenderer;
 
-        player.getCapability(PlayerVoidProvider.CAPABILITY_PLAYER_VOID).ifPresent(v -> {
-            fr.drawString(
-                    "Current Void Stored: " + v.getVoidStored() + "/" + v.getMaxVoidStored(),
-                    0, 0, 0xffffff);
-        });
+        CapabilityPlayerVoid.getPlayerVoid(player).ifPresent(v -> fr.drawString(
+                "Current Void Stored: " + v.getVoidStored() + "/" + v.getMaxVoidStored(),
+                0, 0, 0xffffff));
+
     }
 
 }

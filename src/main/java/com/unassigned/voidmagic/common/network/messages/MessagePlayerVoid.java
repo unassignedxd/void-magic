@@ -1,11 +1,12 @@
 package com.unassigned.voidmagic.common.network.messages;
 
-import com.unassigned.voidmagic.VoidMagic;
-import com.unassigned.voidmagic.common.capability.playervoid.PlayerVoidProvider;
+import com.unassigned.voidmagic.common.capability.playervoid.CapabilityPlayerVoid;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class MessagePlayerVoid {
@@ -26,10 +27,8 @@ public class MessagePlayerVoid {
 
     public static void handle(MessagePlayerVoid message, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            PlayerEntity e = VoidMagic.proxy.getClientPlayer();
-            if(e != null) {
-                e.getCapability(PlayerVoidProvider.CAPABILITY_PLAYER_VOID).ifPresent(pv -> pv.setVoidStored(message.playerVoid));
-            }
+            PlayerEntity playerEntity = Minecraft.getInstance().player;
+            CapabilityPlayerVoid.getPlayerVoid(playerEntity).ifPresent(pv -> pv.addVoid(message.playerVoid));
         });
         ctx.get().setPacketHandled(true);
     }

@@ -1,11 +1,11 @@
 package com.unassigned.voidmagic.common.events;
 
-import com.unassigned.voidmagic.VoidMagic;
-import com.unassigned.voidmagic.common.capability.playervoid.PlayerVoidProvider;
+import com.unassigned.voidmagic.common.capability.CapabilityProviderSerializable;
+import com.unassigned.voidmagic.common.capability.playervoid.CapabilityPlayerVoid;
 import com.unassigned.voidmagic.common.capability.playervoid.IPlayerVoid;
+import com.unassigned.voidmagic.common.capability.playervoid.impl.PlayerVoid;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -19,7 +19,8 @@ public class CommonEvents {
         Entity e = event.getObject();
         if(e != null) {
             if(e instanceof PlayerEntity) {
-                event.addCapability(new ResourceLocation(VoidMagic.MODID, "voidmagic"), new PlayerVoidProvider((PlayerEntity)e));
+                final IPlayerVoid pv = new PlayerVoid((PlayerEntity)e);
+                event.addCapability(CapabilityPlayerVoid.RESLOC, new CapabilityProviderSerializable<>(CapabilityPlayerVoid.CAPABILITY_PLAYER_VOID, null, pv));
             }
         }
     }
@@ -27,10 +28,6 @@ public class CommonEvents {
     @SubscribeEvent
     public void onPlayerCloned(PlayerEvent.Clone event) { //TODO -> void fade on death
         if(event.isWasDeath()) {
-            IPlayerVoid deadVoid = PlayerVoidProvider.getPlayerVoid(event.getOriginal());
-            IPlayerVoid newVoid = PlayerVoidProvider.getPlayerVoid(event.getPlayer());
-            newVoid.setVoidSkills(deadVoid.getVoidSkills());
-            newVoid.setVoidStored(deadVoid.getVoidStored());
         }
     }
 

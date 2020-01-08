@@ -57,29 +57,33 @@ public class PlayerVoid implements IPlayerVoid {
     @Override
     public void setVoidStored(int set) {
         this.voidStored = set;
-        if(player != null && !player.world.isRemote)
-            VoidMagic.network.send(PacketDistributor.PLAYER.with(()-> (ServerPlayerEntity) player), new MessagePlayerVoid(this.voidStored));
+        onVoidChanged();
     }
 
     @Override
     public void addVoid(int toAdd) {
-        this.voidStored += toAdd;
-        if(player != null && !player.world.isRemote)
-            VoidMagic.network.send(PacketDistributor.PLAYER.with(()-> (ServerPlayerEntity) player), new MessagePlayerVoid(this.voidStored));
+        if(this.voidStored + toAdd > getMaxVoidStored()) this.voidStored = getMaxVoidStored();
+            else this.voidStored += toAdd;
+        onVoidChanged();
     }
 
     @Override
     public void removeVoid(int removeVoid) {
         if(this.voidStored - removeVoid < 0){ this.voidStored = 0; }
             else { this.voidStored -= removeVoid; }
-
-        if(player != null && !player.world.isRemote)
-            VoidMagic.network.send(PacketDistributor.PLAYER.with(()-> (ServerPlayerEntity) player), new MessagePlayerVoid(this.voidStored));
+        onVoidChanged();
     }
 
     @Override
     public int getMaxVoidStored() {
         return 100000;
+    }
+
+    protected void onVoidChanged() {
+        PlayerEntity player = getAttachedPlayer();
+        if(player != null && player.getEntityWorld().isRemote) return;
+
+        VoidMagic.network.send(PacketDistributor.PLAYER.with(()->(ServerPlayerEntity)player), new MessagePlayerVoid(getVoidStored()));
     }
 
 }

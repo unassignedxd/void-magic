@@ -1,23 +1,10 @@
 package com.unassigned.voidmagic.common.tileentity;
 
-import com.unassigned.voidmagic.client.fx.ModParticles;
 import com.unassigned.voidmagic.client.fx.particle.VoidSparkParticleData;
 import com.unassigned.voidmagic.client.recipe.VoidInfusionRecipe;
-import com.unassigned.voidmagic.common.capability.playervoid.PlayerVoidProvider;
-import com.unassigned.voidmagic.common.items.ModItems;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
