@@ -55,9 +55,9 @@ public class PlayerVoid implements IPlayerVoid {
     }
 
     @Override
-    public void setVoidStored(int set) {
+    public void setVoidStored(int set, boolean sendPacket) {
         this.voidStored = set;
-        onVoidChanged();
+        if(sendPacket) onVoidChanged();
     }
 
     @Override
@@ -79,7 +79,7 @@ public class PlayerVoid implements IPlayerVoid {
         return 100000;
     }
 
-    protected void onVoidChanged() {
+    public void onVoidChanged() {
         PlayerEntity player = getAttachedPlayer();
         if(player != null && player.getEntityWorld().isRemote) return;
 

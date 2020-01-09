@@ -1,6 +1,7 @@
 package com.unassigned.voidmagic.common.capability.playervoid;
 
 import com.unassigned.voidmagic.VoidMagic;
+import com.unassigned.voidmagic.common.capability.playervoid.impl.PlayerVoid;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
@@ -47,7 +48,7 @@ public class CapabilityPlayerVoid {
                     if(nbt instanceof CompoundNBT) {
                         CompoundNBT compound = (CompoundNBT)nbt;
                         if(compound.contains("VoidStored")) {
-                            instance.setVoidStored(compound.getInt("VoidStored"));
+                            instance.setVoidStored(compound.getInt("VoidStored"), false);
                         }
                         if(compound.contains("VoidSkills")){
                             // -- TODO -- \\
@@ -55,7 +56,7 @@ public class CapabilityPlayerVoid {
                     }
                 }
             }
-        }, ()->null);
+        }, ()->new PlayerVoid(null));
     }
 
     public static LazyOptional<IPlayerVoid> getPlayerVoid(PlayerEntity player) {

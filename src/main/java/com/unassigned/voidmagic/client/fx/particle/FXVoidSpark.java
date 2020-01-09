@@ -52,8 +52,12 @@ public class FXVoidSpark extends Particle {
         this.prevPosZ = this.posZ;
 
         if(age++ >= maxAge) setExpired();
-
-        motionY = 0.5f;
+        else {
+            float percent = ((float)this.age / (float)this.maxAge)*.1F;
+            this.posX = endX + motionX*(double)percent;
+            this.posY = endY + motionY*(double)percent;
+            this.posZ = endZ + motionZ*(double)percent;
+        }
 
         this.move(motionX, motionY, motionZ);
     }

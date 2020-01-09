@@ -24,7 +24,6 @@ public class TestItem extends Item {
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
         CapabilityPlayerVoid.getPlayerVoid(player).ifPresent(cap -> {
             if(!world.isRemote) cap.addVoid(1500);
-            player.sendMessage(new StringTextComponent("Client Side?: " + world.isRemote + " | Player's Stored Void is now: " + cap.getVoidStored()));
         });
         return new ActionResult<>(ActionResultType.SUCCESS, player.getHeldItem(hand));
     }

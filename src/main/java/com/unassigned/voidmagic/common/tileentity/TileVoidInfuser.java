@@ -2,6 +2,8 @@ package com.unassigned.voidmagic.common.tileentity;
 
 import com.unassigned.voidmagic.client.fx.particle.VoidSparkParticleData;
 import com.unassigned.voidmagic.client.recipe.VoidInfusionRecipe;
+import com.unassigned.voidmagic.common.capability.playervoid.CapabilityPlayerVoid;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
@@ -45,9 +47,11 @@ public class TileVoidInfuser extends TileEntityBase {
     @Override
     public void update() {
         super.update();
-        if(ticksElapsed%20==0) {
-            VoidSparkParticleData data = new VoidSparkParticleData((float)Math.random(), 0,0,0, (float)Math.random(),(float)Math.random(), (float)Math.random(), 100, true, true);
-            world.addParticle(data, this.pos.getX(), this.pos.getY()+1.5, this.pos.getZ(), 0,0,0);
+        PlayerEntity player = world.getClosestPlayer(this.pos.getX(), this.pos.getY(), this.pos.getZ());
+        if(player != null){
+            VoidSparkParticleData data = new VoidSparkParticleData((float)Math.random(), (float)player.posX, (float)player.posY+1.5F, (float) player.posZ,
+                    (float)Math.random(),(float)Math.random(), (float)Math.random(), 100, false, true);
+            world.addParticle(data, this.pos.getX()+.5, this.pos.getY()+1.5, this.pos.getZ()+.5, 0,0,0);
         }
     }
 

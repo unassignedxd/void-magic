@@ -7,6 +7,7 @@ import com.unassigned.voidmagic.common.capability.playervoid.impl.PlayerVoid;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -28,6 +29,16 @@ public class CommonEvents {
     @SubscribeEvent
     public void onPlayerCloned(PlayerEvent.Clone event) { //TODO -> void fade on death
         if(event.isWasDeath()) {
+        }
+    }
+
+    @SubscribeEvent
+    public void onJoinWorld(EntityJoinWorldEvent event) {
+        Entity e = event.getEntity();
+        if(e != null) {
+            if(e instanceof PlayerEntity) {
+                CapabilityPlayerVoid.getPlayerVoid((PlayerEntity)e).ifPresent(IPlayerVoid::onVoidChanged);
+            }
         }
     }
 

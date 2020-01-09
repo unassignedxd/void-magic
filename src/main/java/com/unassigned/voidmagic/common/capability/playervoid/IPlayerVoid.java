@@ -14,9 +14,11 @@ public interface IPlayerVoid {
     void removeSkill(IVoidSkill skill);
 
     int getVoidStored();
-    void setVoidStored(int set);
+    void setVoidStored(int set, boolean sendPacket);
     void addVoid(int toAdd);
     void removeVoid(int removeVoid);
 
     int getMaxVoidStored();
+
+    void onVoidChanged();
 }

@@ -28,7 +28,7 @@ public class MessagePlayerVoid {
     public static void handle(MessagePlayerVoid message, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             PlayerEntity playerEntity = Minecraft.getInstance().player;
-            CapabilityPlayerVoid.getPlayerVoid(playerEntity).ifPresent(pv -> pv.addVoid(message.playerVoid));
+            CapabilityPlayerVoid.getPlayerVoid(playerEntity).ifPresent(pv -> pv.setVoidStored(message.playerVoid, true));
         });
         ctx.get().setPacketHandled(true);
     }
