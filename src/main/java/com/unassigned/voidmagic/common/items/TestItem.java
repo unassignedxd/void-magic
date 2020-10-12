@@ -15,9 +15,7 @@ public class TestItem extends Item {
 
     public TestItem() {
         super(new Item.Properties()
-                .maxStackSize(1)
-                .group(VoidMagic.setup.itemGroup));
-        setRegistryName("testitem");
+                .maxStackSize(1));
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.unassigned.voidmagic.common.blocks;
 
-import com.unassigned.voidmagic.common.tileentity.TileVoidStand;
+import com.unassigned.voidmagic.common.blocks.tile.TileVoidStand;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
@@ -22,7 +22,6 @@ public class BlockVoidStand extends Block {
 
     public BlockVoidStand() {
         super(Properties.create(Material.IRON).hardnessAndResistance(2.5F));
-        setRegistryName("voidstand");
     }
 
     @Nullable
@@ -37,7 +36,7 @@ public class BlockVoidStand extends Block {
     }
 
     @Override
-    public boolean onBlockActivated(BlockState state, World world, BlockPos blockPos, PlayerEntity player, Hand hand, BlockRayTraceResult ray) {
+    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos blockPos, PlayerEntity player, Hand hand, BlockRayTraceResult ray) {
         TileEntity te = world.getTileEntity(blockPos);
         ItemStack item = player.getHeldItem(hand);
         if(te != null) {
@@ -50,7 +49,7 @@ public class BlockVoidStand extends Block {
                             if(world.isRemote) player.playSound(SoundEvents.ENTITY_ITEM_FRAME_ADD_ITEM, .5f, 1f);
                         }
                     });
-                    return true;
+                    return ActionResultType.SUCCESS;
                 } else if(!item.isEmpty()){
                     te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(i -> {
                         ItemStack holding = i.getStackInSlot(0);
@@ -62,10 +61,10 @@ public class BlockVoidStand extends Block {
                             if(world.isRemote) player.playSound(SoundEvents.ENTITY_ITEM_FRAME_ADD_ITEM, .5f, 1f);
                         }
                     });
-                    return true;
+                    return ActionResultType.SUCCESS;
                 }
             }
         }
-        return false;
+        return ActionResultType.FAIL;
     }
 }

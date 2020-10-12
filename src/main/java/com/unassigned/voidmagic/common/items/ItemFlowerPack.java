@@ -7,8 +7,6 @@ public class ItemFlowerPack extends Item {
 
     public ItemFlowerPack() {
         super(new Item.Properties()
-                .maxStackSize(1)
-                .group(VoidMagic.setup.itemGroup));
-        setRegistryName("flowerPack");
+                .maxStackSize(1));
     }
 }

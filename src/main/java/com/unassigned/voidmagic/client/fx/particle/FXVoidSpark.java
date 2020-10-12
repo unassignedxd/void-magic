@@ -1,6 +1,7 @@
 package com.unassigned.voidmagic.client.fx.particle;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.ActiveRenderInfo;
@@ -53,7 +54,7 @@ public class FXVoidSpark extends Particle {
 
         if(age++ >= maxAge) setExpired();
         else {
-            float percent = ((float)this.age / (float)this.maxAge)*.1F;
+            float percent = ((float)this.age / (float)this.maxAge)*2F;
             this.posX = endX + motionX*(double)percent;
             this.posY = endY + motionY*(double)percent;
             this.posZ = endZ + motionZ*(double)percent;
@@ -63,7 +64,7 @@ public class FXVoidSpark extends Particle {
     }
 
     @Override
-    public void renderParticle(BufferBuilder buffer, ActiveRenderInfo entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
+    public void renderParticle(IVertexBuilder buffer, ActiveRenderInfo renderInfo, float partialTicks) {
         int part = particle + age/multiplier;
 
         float var8 = part % 8 / 8.0F;
@@ -75,15 +76,16 @@ public class FXVoidSpark extends Particle {
 
         if(shrink) var12 *= (maxAge-age+1)/(float)maxAge;
 
-        float var13 = (float)(prevPosX + (posX - prevPosX) * partialTicks - interpPosX);
-        float var14 = (float)(prevPosY + (posY - prevPosY) * partialTicks - interpPosY);
-        float var15 = (float)(prevPosZ + (posZ - prevPosZ) * partialTicks - interpPosZ);
-        float var16 = 1.0f;
+        //float var13 = (float)(prevPosX + (posX - prevPosX) * partialTicks - interpPosX);
+        //float var14 = (float)(prevPosY + (posY - prevPosY) * partialTicks - interpPosY);
+        //float var15 = (float)(prevPosZ + (posZ - prevPosZ) * partialTicks - interpPosZ);
+        //float var16 = 1.0f;
 
-        buffer.pos(var13 - rotationX * var12 - rotationXY * var12, var14 - rotationZ * var12, var15 - rotationYZ * var12 - rotationXZ * var12).tex(var9, var11).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 1).endVertex();
-        buffer.pos(var13 - rotationX * var12 + rotationXY * var12, var14 + rotationZ * var12, var15 - rotationYZ * var12 + rotationXZ * var12).tex(var9, var10).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 1).endVertex();
-        buffer.pos(var13 + rotationX * var12 + rotationXY * var12, var14 + rotationZ * var12, var15 + rotationYZ * var12 + rotationXZ * var12).tex(var8, var10).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 1).endVertex();
-        buffer.pos(var13 + rotationX * var12 - rotationXY * var12, var14 - rotationZ * var12, var15 + rotationYZ * var12 - rotationXZ * var12).tex(var8, var11).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 1).endVertex();
+        //buffer.pos(var13 - rotationX * var12 - rotationXY * var12, var14 - rotationZ * var12, var15 - rotationYZ * var12 - rotationXZ * var12).tex(var9, var11).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 1).endVertex();
+        //buffer.pos(var13 - rotationX * var12 + rotationXY * var12, var14 + rotationZ * var12, var15 - rotationYZ * var12 + rotationXZ * var12).tex(var9, var10).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 1).endVertex();
+        //buffer.pos(var13 + rotationX * var12 + rotationXY * var12, var14 + rotationZ * var12, var15 + rotationYZ * var12 + rotationXZ * var12).tex(var8, var10).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 1).endVertex();
+        //buffer.pos(var13 + rotationX * var12 - rotationXY * var12, var14 - rotationZ * var12, var15 + rotationYZ * var12 - rotationXZ * var12).tex(var8, var11).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 1).endVertex();
+
     }
 
     @Override

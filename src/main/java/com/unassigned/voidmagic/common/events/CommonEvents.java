@@ -2,7 +2,7 @@ package com.unassigned.voidmagic.common.events;
 
 import com.unassigned.voidmagic.common.capability.CapabilityProviderSerializable;
 import com.unassigned.voidmagic.common.capability.playervoid.CapabilityPlayerVoid;
-import com.unassigned.voidmagic.common.capability.playervoid.IPlayerVoid;
+import com.unassigned.voidmagic.api.capability.IPlayerVoid;
 import com.unassigned.voidmagic.common.capability.playervoid.impl.PlayerVoid;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;

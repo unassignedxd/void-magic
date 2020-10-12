@@ -1,6 +1,6 @@
 package com.unassigned.voidmagic.datagen;
 
-import com.unassigned.voidmagic.common.blocks.ModBlocks;
+import com.unassigned.voidmagic.common.util.ModRegistration;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
@@ -17,7 +17,7 @@ public class DataRecipes extends RecipeProvider {
 
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-        ShapedRecipeBuilder.shapedRecipe(ModBlocks.coalGenerator)
+        ShapedRecipeBuilder.shapedRecipe(ModRegistration.TESTBLOCK.get())
                 .patternLine("xxx")
                 .patternLine("x2x")
                 .patternLine("xxx")

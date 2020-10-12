@@ -2,7 +2,6 @@ package com.unassigned.voidmagic.client.screens;
 
 import com.unassigned.voidmagic.VoidMagic;
 import com.unassigned.voidmagic.common.container.ContainerCoalGenerator;
-import com.unassigned.voidmagic.common.tileentity.TileCoalGenerator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
@@ -31,7 +30,7 @@ public class CoalGeneratorScreen extends ContainerScreen<ContainerCoalGenerator>
         drawString(Minecraft.getInstance().fontRenderer, "Energy Stored: " + container.getEnergyStored(), 10, 10, 0xfffff);
         this.minecraft.getTextureManager().bindTexture(resLoc);
         float i = ((float)container.getEnergyStored() / (float)container.getMaxEnergyStored())*144F;
-        this.blit(16, 39, 0, 134, (int)i, 7);
+        this.blit(16, 39, 0, 134, (int)i, 7); //x y nx ny w h
     }
 
     @Override

@@ -14,8 +14,7 @@ import java.util.List;
 public class ItemTransmuteStone extends Item {
 
     public ItemTransmuteStone() {
-        super(new Item.Properties().maxStackSize(1).group(VoidMagic.setup.itemGroup));
-        setRegistryName("transmutestone");
+        super(new Item.Properties().maxStackSize(1));
     }
 
     @Override

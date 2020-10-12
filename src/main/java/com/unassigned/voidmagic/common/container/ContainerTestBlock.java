@@ -1,8 +1,6 @@
 package com.unassigned.voidmagic.common.container;
 
-import static com.unassigned.voidmagic.common.blocks.ModBlocks.testBlockContainer;
-
-import com.unassigned.voidmagic.common.blocks.ModBlocks;
+import com.unassigned.voidmagic.common.util.ModRegistration;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -22,7 +20,7 @@ public class ContainerTestBlock extends Container {
     private IItemHandler playerInventory;
 
     public ContainerTestBlock(int windowId, World world, BlockPos pos, PlayerInventory playerInventory, PlayerEntity entity) {
-        super(testBlockContainer, windowId);
+        super(ModRegistration.TESTBLOCK_CONTAINER.get(), windowId);
         te = world.getTileEntity(pos);
         te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
         this.player = entity;
@@ -66,6 +64,6 @@ public class ContainerTestBlock extends Container {
 
     @Override
     public boolean canInteractWith(PlayerEntity entity) {
-        return isWithinUsableDistance(IWorldPosCallable.of(te.getWorld(), te.getPos()), entity, ModBlocks.testBlock);
+        return isWithinUsableDistance(IWorldPosCallable.of(te.getWorld(), te.getPos()), entity, ModRegistration.TESTBLOCK.get());
     }
 }

@@ -1,8 +1,9 @@
 package com.unassigned.voidmagic.common.capability.playervoid.impl;
 
 import com.unassigned.voidmagic.VoidMagic;
-import com.unassigned.voidmagic.common.capability.playervoid.IVoidSkill;
-import com.unassigned.voidmagic.common.capability.playervoid.IPlayerVoid;
+import com.unassigned.voidmagic.api.capability.IVoidSkill;
+import com.unassigned.voidmagic.api.capability.IPlayerVoid;
+import com.unassigned.voidmagic.common.network.ModNetwork;
 import com.unassigned.voidmagic.common.network.messages.MessagePlayerVoid;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -83,7 +84,7 @@ public class PlayerVoid implements IPlayerVoid {
         PlayerEntity player = getAttachedPlayer();
         if(player != null && player.getEntityWorld().isRemote) return;
 
-        VoidMagic.network.send(PacketDistributor.PLAYER.with(()->(ServerPlayerEntity)player), new MessagePlayerVoid(getVoidStored()));
+        ModNetwork.INSTANCE.send(PacketDistributor.PLAYER.with(()->(ServerPlayerEntity)player), new MessagePlayerVoid(getVoidStored()));
     }
 
 }

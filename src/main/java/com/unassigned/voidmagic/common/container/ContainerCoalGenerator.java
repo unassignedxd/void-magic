@@ -1,7 +1,7 @@
 package com.unassigned.voidmagic.common.container;
 
-import com.unassigned.voidmagic.common.blocks.ModBlocks;
 import com.unassigned.voidmagic.common.util.CustomEnergyStorage;
+import com.unassigned.voidmagic.common.util.ModRegistration;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -17,9 +17,6 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
-import static com.unassigned.voidmagic.common.blocks.ModBlocks.coalGeneratorContainer;
-import static com.unassigned.voidmagic.common.blocks.ModBlocks.coalGeneratorTile;
-
 public class ContainerCoalGenerator extends Container {
 
     private TileEntity te;
@@ -27,7 +24,7 @@ public class ContainerCoalGenerator extends Container {
     private IItemHandler playerInventory;
 
     public ContainerCoalGenerator(int windowId, World world, BlockPos pos, PlayerInventory playerInventory, PlayerEntity entity) {
-        super(coalGeneratorContainer, windowId);
+        super(ModRegistration.COALGENERATOR_CONTAINER.get(), windowId);
         te = world.getTileEntity(pos);
         te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
         this.player = entity;
@@ -99,6 +96,6 @@ public class ContainerCoalGenerator extends Container {
 
     @Override
     public boolean canInteractWith(PlayerEntity entity) {
-        return isWithinUsableDistance(IWorldPosCallable.of(te.getWorld(), te.getPos()), entity, ModBlocks.coalGenerator);
+        return isWithinUsableDistance(IWorldPosCallable.of(te.getWorld(), te.getPos()), entity, ModRegistration.COALGENERATOR.get());
     }
 }

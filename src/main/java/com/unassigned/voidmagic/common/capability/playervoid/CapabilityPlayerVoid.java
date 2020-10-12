@@ -1,6 +1,8 @@
 package com.unassigned.voidmagic.common.capability.playervoid;
 
 import com.unassigned.voidmagic.VoidMagic;
+import com.unassigned.voidmagic.api.capability.IPlayerVoid;
+import com.unassigned.voidmagic.api.capability.IVoidSkill;
 import com.unassigned.voidmagic.common.capability.playervoid.impl.PlayerVoid;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;

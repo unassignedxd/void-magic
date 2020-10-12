@@ -1,4 +1,4 @@
-package com.unassigned.voidmagic.common.capability.playervoid;
+package com.unassigned.voidmagic.api.capability;
 
 import net.minecraft.entity.player.PlayerEntity;
 

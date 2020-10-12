@@ -1,8 +1,7 @@
-package com.unassigned.voidmagic.common.tileentity;
-
-import static com.unassigned.voidmagic.common.blocks.ModBlocks.testBlockTile;
+package com.unassigned.voidmagic.common.blocks.tile;
 
 import com.unassigned.voidmagic.common.container.ContainerTestBlock;
+import com.unassigned.voidmagic.common.util.ModRegistration;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -29,7 +28,7 @@ public class TileTestBlock extends TileEntity implements ITickableTileEntity, IN
     private LazyOptional<IItemHandler> handler = LazyOptional.of(this::createHandler);
 
     public TileTestBlock() {
-        super(testBlockTile);
+        super(ModRegistration.TESTBLOCK_TILE.get());
     }
 
     @Override

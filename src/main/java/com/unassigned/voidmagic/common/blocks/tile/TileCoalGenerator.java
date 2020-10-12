@@ -1,7 +1,8 @@
-package com.unassigned.voidmagic.common.tileentity;
+package com.unassigned.voidmagic.common.blocks.tile;
 
 import com.unassigned.voidmagic.common.container.ContainerCoalGenerator;
 import com.unassigned.voidmagic.common.util.CustomEnergyStorage;
+import com.unassigned.voidmagic.common.util.ModRegistration;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -26,8 +27,6 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import static com.unassigned.voidmagic.common.blocks.ModBlocks.coalGeneratorTile;
-
 public class TileCoalGenerator extends TileEntity implements ITickableTileEntity, INamedContainerProvider {
 
     private LazyOptional<IItemHandler> itemHandler = LazyOptional.of(this::createItemHandler);
@@ -37,7 +36,7 @@ public class TileCoalGenerator extends TileEntity implements ITickableTileEntity
     private static final int ENERGY_PER_TICK = 20; //20 FE/T
 
     public TileCoalGenerator() {
-        super(coalGeneratorTile);
+        super(ModRegistration.COALGENERATOR_TILE.get());
     }
 
     @Override

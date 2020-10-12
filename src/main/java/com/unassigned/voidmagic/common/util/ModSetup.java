@@ -1,22 +1,22 @@
 package com.unassigned.voidmagic.common.util;
 
-import com.unassigned.voidmagic.common.blocks.ModBlocks;
 import com.unassigned.voidmagic.common.capability.playervoid.CapabilityPlayerVoid;
-import com.unassigned.voidmagic.common.capability.playervoid.IPlayerVoid;
+import com.unassigned.voidmagic.common.network.ModNetwork;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class ModSetup {
 
-    public ItemGroup itemGroup = new ItemGroup("voidmagic") {
+    public static ItemGroup ITEM_GROUP = new ItemGroup("voidmagic") {
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(ModBlocks.testBlock);
+            return new ItemStack(ModRegistration.TESTBLOCK.get());
         }
     };
 
-    public void init() {
+    public static void init(final FMLCommonSetupEvent event) {
+        ModNetwork.registerMessages();
         CapabilityPlayerVoid.registerCap();
     }
 }

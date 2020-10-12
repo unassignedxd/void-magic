@@ -1,13 +1,16 @@
 package com.unassigned.voidmagic.common.blocks;
 
-import com.unassigned.voidmagic.common.tileentity.TileTestBlock;
+import com.unassigned.voidmagic.common.blocks.tile.TileTestBlock;
+import com.unassigned.voidmagic.common.container.ContainerTestBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
@@ -18,6 +21,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -31,19 +36,31 @@ public class TestBlock extends Block {
                 .sound(SoundType.METAL)
                 .hardnessAndResistance(2.0F)
                 .lightValue(14));
-        setRegistryName("testblock");
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity entity, Hand hand, BlockRayTraceResult ray) {
-        if(!world.isRemote) {
-            TileEntity te = world.getTileEntity(pos);
-            if(te != null && te instanceof INamedContainerProvider) {
-                NetworkHooks.openGui((ServerPlayerEntity)entity, (INamedContainerProvider) te, te.getPos());
-                return true;
+    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult trace) {
+        if (!world.isRemote) {
+            TileEntity tileEntity = world.getTileEntity(pos);
+            if (tileEntity instanceof TileTestBlock) {
+                INamedContainerProvider containerProvider = new INamedContainerProvider() {
+                    @Override
+                    public ITextComponent getDisplayName() {
+                        return new TranslationTextComponent("screen.voidmagic.testblock");
+                    }
+
+                    @Override
+                    public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+                        return new ContainerTestBlock(i, world, pos, playerInventory, playerEntity);
+                    }
+                };
+                NetworkHooks.openGui((ServerPlayerEntity) player, containerProvider, tileEntity.getPos());
+            } else {
+                throw new IllegalStateException("Our named container provider is missing!");
             }
         }
-        return super.onBlockActivated(state, world, pos, entity, hand, ray);
+        return ActionResultType.SUCCESS;
     }
 
     @Override
